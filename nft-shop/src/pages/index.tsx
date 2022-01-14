@@ -6,6 +6,7 @@ import { useAppSelector, wrapper } from '../redux/getStore'
 import { getItemsActionCreator } from '../redux/items'
 import { color, media } from '../style'
 import CommonMeta from '../components/atoms/CommonMeta'
+import { EndedAuctionList } from '../components/organisms/AuctionList/ended'
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
@@ -46,7 +47,7 @@ const Page = ({
       <InnerContainer>
         {waitingItems && <LoadingList />}
         {!waitingItems && <LiveAuctionList items={items.live} />}
-        {/* {!waitingItems && <EndedAuctionList items={[]} />} */}
+        {!waitingItems && <EndedAuctionList items={items.ended} />}
       </InnerContainer>
     </Container>
   )
