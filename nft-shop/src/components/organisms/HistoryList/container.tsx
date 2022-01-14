@@ -17,10 +17,6 @@ export const Container: React.VFC<Props> = () => {
     return state.app.item.data
   })
 
-  const waitingHistory = useAppSelector((state) => {
-    return state.app.history.meta.waitingHistoryAction
-  })
-
   useEffect(() => {
     item?.bids.forEach((h) => {
       if (typeof accounts[h.bidder] === 'undefined') {
@@ -32,9 +28,16 @@ export const Container: React.VFC<Props> = () => {
       }
     })
   }, [item?.bids, accounts])
+  if (
+    item?.paymentMethodData.paymentMethod !==
+    'ethereum-contract-erc721-shop-auction'
+  ) {
+    return null
+  }
+
   return (
     <Presentation
-      loading={waitingHistory}
+      loading={false}
       history={
         item
           ? item?.bids.map((h) => {

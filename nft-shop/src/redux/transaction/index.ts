@@ -57,7 +57,6 @@ export const withDrawItemActionCreator = createAsyncThunk<
   try {
     const tx = await getSdk().sendTxMakeSuccessfulBid(
       itemId,
-      // TODO
       inJapan ? 'jp' : 'unknown'
     )
     await tx?.wait()

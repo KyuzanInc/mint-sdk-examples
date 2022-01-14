@@ -84,7 +84,8 @@ export const Presentation: React.VFC<Props> = ({
           <Tabs
             items={[
               { label: '入札中/引き出し待ち', value: 'bidding' },
-              { label: 'フィジカルアイテム', value: 'withPhysical' },
+              // TODO: フィジカル実装後に実装
+              // { label: 'フィジカルアイテム', value: 'withPhysical' },
               { label: '購入済み', value: 'owned' },
             ]}
             onChange={setSelectedTab}

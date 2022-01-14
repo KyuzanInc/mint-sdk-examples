@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { dialogSlice } from '../../../redux/dialog'
 import { useAppDispatch, useAppSelector } from '../../../redux/getStore'
-import { getHistoryActionCreator } from '../../../redux/history'
 import { getItemActionCreator } from '../../../redux/item'
 import {
   bidActionCreator,
@@ -59,7 +58,6 @@ export const Container: React.VFC = () => {
 
   const updateInfo = useCallback(async () => {
     await dispatch(getItemActionCreator(item?.id ?? '') as any)
-    await dispatch(getHistoryActionCreator(item?.id ?? '') as any)
     await dispatch(initialWalletActionCreator() as any)
     setBidPrice('')
   }, [])

@@ -26,7 +26,6 @@ import { RouterState } from 'connected-next-router/types'
 import { walletSlice, initialState } from './wallet'
 import { initialItemsState, itemsSlice } from './items'
 import { initialItemState, itemSlice } from './item'
-import { historySlice, initialHistoryState } from './history'
 import { initialMyItemsState, myItemsSlice } from './myItems'
 import { myAccountInfoSlice, initialMyAccountInfoState } from './myAccountInfo'
 import { accountInfoSlice, initialAccountInfoState } from './accountInfo'
@@ -39,7 +38,6 @@ const rootReducer = combineReducers({
     myItems: myItemsSlice.reducer,
     items: itemsSlice.reducer,
     item: itemSlice.reducer,
-    history: historySlice.reducer,
     transaction: transactionSlice.reducer,
     shippingInfo: shippingInfoSlice.reducer,
     myAccountInfo: myAccountInfoSlice.reducer,
@@ -59,7 +57,6 @@ const getInitialState = (asPath?: string) => {
       myItems: initialMyItemsState,
       items: initialItemsState,
       item: initialItemState,
-      history: initialHistoryState,
       transaction: initialTransactionState,
       shippingInfo: initialShippingInfoState,
       myAccountInfo: initialMyAccountInfoState,
