@@ -6,7 +6,6 @@ const ACCESS_TOKEN = 'e09da806-cf69-4eee-942b-27b3e993e429'
 const FORTMATIC_KEY = 'pk_test_7459BD51DE1FC406'
 // ---
 
-const app = document.querySelector<HTMLDivElement>('#app')!
 const sdk = new MintSDK(ACCESS_TOKEN, {
   fortmatic: {
     key: FORTMATIC_KEY,
