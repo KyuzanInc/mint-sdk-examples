@@ -36,9 +36,13 @@ authButton.addEventListener('click', async () => {
     sig,
     data,
   })
+  const ownedNFTs = await sdk.getTokensByAddress({
+    walletAddress: verifiedWalletAddress,
+    perPage: 100,
+    page: 1,
+  })
   const debugUI = document.querySelector<HTMLDivElement>('#debug')!
   debugUI.innerHTML = `
-    ---- below should be processed on server side  ----
     <p>
       Verified WalletAddress: ${verifiedWalletAddress}
     </p>
@@ -48,5 +52,19 @@ authButton.addEventListener('click', async () => {
     <p>
       Signature: ${sig}
     </p>
+    <p> Owned NFTs </p>
   `
+  for await (const nft of ownedNFTs) {
+    const el = document.createElement('div')
+    const contract = await sdk.getContractERC721ById({
+      contractId: nft.contractERC721Id,
+    })
+    el.innerHTML = `
+        🖼
+        ContractAddress: ${contract.address}
+        TokenId: ${nft.tokenId}
+        TokenURI: ${nft.tokenURI}
+      `
+    debugUI.appendChild(el)
+  }
 })
