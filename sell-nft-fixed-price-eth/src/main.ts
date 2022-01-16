@@ -47,7 +47,8 @@ const updateUI = async () => {
     buyButton.textContent = `Buy ${item.name} (This process takes a few minutes)`
     buyButton.addEventListener('click', async () => {
       try {
-        await sdk.sendTxBuyItem(item.id)
+        const tx = await sdk.sendTxBuyItem(item.id)
+        alert(`the tx link is ${getTransactionLink(tx.hash, 4)}`)
       } catch (err) {
         alert(err)
       }
@@ -95,7 +96,7 @@ const updateUI = async () => {
   }
 }
 
-export const getOpenSeaLink = ({
+const getOpenSeaLink = ({
   networkId,
   contractAddress,
   tokenId,
@@ -118,6 +119,26 @@ export const getOpenSeaLink = ({
 
   if (networkId === 80001) {
     return `https://testnets.opensea.io/assets/matic/${contractAddress}/${tokenId}`
+  }
+
+  return ''
+}
+
+const getTransactionLink = (hash: string, networkId: NetworkId) => {
+  if (networkId === 1) {
+    return `https://etherscan.io/tx/${hash}`
+  }
+
+  if (networkId === 4) {
+    return `https://rinkeby.etherscan.io/tx/${hash}`
+  }
+
+  if (networkId === 137) {
+    return `https://explorer-mainnet.maticvigil.com/tx/${hash}`
+  }
+
+  if (networkId === 80001) {
+    return `https://explorer-mumbai.maticvigil.com/tx/${hash}`
   }
 
   return ''
