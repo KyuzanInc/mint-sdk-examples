@@ -17,7 +17,7 @@
   "dependencies": {
     "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
-    "@hookform/resolvers": "2.8.5",
+    "@hookform/resolvers": "2.8.8",
     "@kyuzan/mint-sdk-js": "6.0.1",
     "@reduxjs/toolkit": "1.7.1",
     "@tippyjs/react": "4.2.6",
@@ -34,7 +34,7 @@
     "react-countdown": "2.3.2",
     "react-device-detect": "1.17.0",
     "react-dom": "17.0.2",
-    "react-hook-form": "7.24.0",
+    "react-hook-form": "7.24.1",
     "react-loading-skeleton": "2.2.0",
     "react-modal": "3.14.4",
     "react-redux": "7.2.6",
@@ -46,7 +46,7 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "7.16.7",
+    "@babel/core": "7.16.10",
     "@storybook/addon-actions": "6.4.13",
     "@storybook/addon-essentials": "6.4.13",
     "@storybook/addon-links": "6.4.13",
