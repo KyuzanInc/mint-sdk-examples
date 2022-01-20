@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "typescript": "4.5.4",
-    "vite": "2.7.12"
+    "vite": "2.7.13"
   },
   "dependencies": {
     "@kyuzan/mint-sdk-js": "6.0.1",
