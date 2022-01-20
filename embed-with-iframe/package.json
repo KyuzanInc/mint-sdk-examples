@@ -1,0 +1,19 @@
+{
+  "name": "login-wallet",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "4.5.4",
+    "vite": "2.7.13"
+  },
+  "dependencies": {
+    "@kyuzan/mint-sdk-js": "6.0.1",
+    "@esbuild-plugins/node-globals-polyfill": "0.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "0.1.4",
+    "rollup-plugin-node-polyfills": "0.2.1"
+  }
+}
