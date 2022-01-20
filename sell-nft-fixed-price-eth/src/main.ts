@@ -2,7 +2,7 @@ import './style.css'
 import { MintSDK, NetworkId } from '@kyuzan/mint-sdk-js'
 
 // --- configs
-const ACCESS_TOKEN = 'TODO'
+const ACCESS_TOKEN = 'Set your Mint SDK Keys'
 const FORTMATIC_KEY = 'pk_test_7459BD51DE1FC406'
 // ---
 
