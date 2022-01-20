@@ -16,3 +16,7 @@ iframe {
   width: 50vw;
   height: 50vh;
 }
+
+.divider {
+  margin-top: 40px;
+}
