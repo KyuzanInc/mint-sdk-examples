@@ -173,6 +173,10 @@ export const Presentation: React.VFC<Props> = ({
                 return (
                   <OwnedItemContainer key={item.id}>
                     <TokenCard
+                      // TODO
+                      contractAddress={'0x000'}
+                      networkId={4}
+                      tokenId={item.tokenId}
                       title={(item.metadata as any).name as string}
                       media={{
                         url: ipfsToHttp((item.metadata as any).image as string),

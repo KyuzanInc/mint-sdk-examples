@@ -5,7 +5,6 @@ import { MediaContent } from '../../../components/atoms/MediaContent'
 import { HistoryList } from '../../../components/organisms/HistoryList'
 import { ItemDetail } from '../../../components/organisms/ItemDetail'
 import { useAppSelector, wrapper } from '../../../redux/getStore'
-import { getHistoryActionCreator } from '../../../redux/history'
 import { getItemActionCreator } from '../../../redux/item'
 import { color, media } from '../../../style'
 
@@ -16,7 +15,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const currentPath = context.req.url
     const itemId = context.query['itemId'] as string
     await Promise.all([
-      context.store.dispatch(getHistoryActionCreator(itemId) as any),
       context.store.dispatch(getItemActionCreator(itemId) as any),
     ])
     return {

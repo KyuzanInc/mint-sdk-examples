@@ -1,4 +1,4 @@
-import { Item } from '@kyuzan/mint-sdk-js'
+import { Item, Stripe } from '@kyuzan/mint-sdk-js'
 import styled from '@emotion/styled'
 import React, { ChangeEventHandler } from 'react'
 import { Tag as TagBase } from '../../atoms/Tag'
@@ -7,9 +7,7 @@ import { WalletModal } from '../../molecules/WalletModal'
 import { SaleActionModal } from '../../molecules/SaleActionModal'
 import { AboutPhysicalModal } from '../../molecules/AboutPhysicalModal'
 import { AboutAutoExtensionAuctionModal } from '../../molecules/AboutAutoExtensionAuctionModal'
-// import { getOpenSeaLink } from '../../../util/getOpenSeaLink'
-// import { SecondaryButton } from '../../atoms/SecondaryButton'
-import { getItemPriceUnit, getPriceUnit } from '../../../util/getItemPriceUnit'
+import { getItemPriceUnit } from '../../../util/getItemPriceUnit'
 import Image from 'next/image'
 import { StatusDetail } from '../../molecules/Detail'
 import { LoadingItemDetailComponent } from './loading'
@@ -18,6 +16,7 @@ import { BoughtFixedPriceSuccessModal } from '../../molecules/BoughtFixedPriceSu
 import { PrimaryButton } from '../../atoms/PrimaryButton'
 import { isOnSale } from '../../../util/isOnSale'
 import { CountdownTimeDelta } from 'react-countdown'
+import { SaleActionModalWithStripe } from '../../molecules/SaleActionModalWithStripe'
 
 type Props =
   | {
@@ -46,6 +45,11 @@ type Props =
       bidPrice: string
       handleDoBid: () => void
       handleDoBuy: (inJapan: boolean) => void
+      handleDoBuyWityStripe: (inJapan: boolean) => void
+      stripePaymentInfo: null | {
+        paymentIntentClientSecret: string
+        stripe: Stripe | null
+      }
       isValidationError: boolean
       errorText: string
       taHash?: string
@@ -60,12 +64,6 @@ export const Presentation: React.VFC<Props> = (args) => {
   if (args.loading) {
     return <LoadingItemDetailComponent />
   }
-
-  if (
-    args.item.paymentMethodData.paymentMethod ===
-    'credit-card-stripe-fixed-price'
-  )
-    throw new Error('not implemented')
 
   const startDate = new Date(args.item.startAt)
   const endDate = new Date(args.item.endAt)
@@ -94,9 +92,7 @@ export const Presentation: React.VFC<Props> = (args) => {
         </TagWrap>
         <TradeInfoContainer>
           <StatusDetail
-            unit={getPriceUnit(
-              args.item.paymentMethodData.contractDataERC721Shop.networkId
-            )}
+            unit={getItemPriceUnit(args.item)}
             price={args.item.price}
             endAt={endDate}
             tradeType={tradeType}
@@ -138,7 +134,7 @@ export const Presentation: React.VFC<Props> = (args) => {
               type={'button'}
             />
           ) : (
-            <BidButton label={'売り切れ'} disabled={true} type={'button'} />
+            <BidButton label={'-'} disabled={true} type={'button'} />
           ))}
 
         {tradeType !== 'ethereum-contract-erc721-shop-auction' &&
@@ -149,7 +145,7 @@ export const Presentation: React.VFC<Props> = (args) => {
               type={'button'}
             />
           ) : (
-            <BidButton label={'売り切れ'} disabled={true} type={'button'} />
+            <BidButton label={'-'} disabled={true} type={'button'} />
           ))}
         <Description>{args.item.description}</Description>
         <SecondaryButtonUL>
@@ -209,7 +205,25 @@ export const Presentation: React.VFC<Props> = (args) => {
           errorText={args.errorText}
         />
       )}
-
+      {console.log(args.actionModalOpen)}
+      {args.item.paymentMethodData.paymentMethod ===
+        'credit-card-stripe-fixed-price' && (
+        <SaleActionModalWithStripe
+          itemTradeType={tradeType}
+          itemName={args.item.name}
+          price={args.item.price}
+          endAt={endDate}
+          media={args.item.previews[0]}
+          unit={getItemPriceUnit(args.item)}
+          isOpen={args.actionModalOpen}
+          loading={args.bidding}
+          closeModal={args.handleCloseBidModal}
+          doBuy={args.handleDoBuyWityStripe}
+          isValidationError={args.isValidationError}
+          errorText={args.errorText}
+          stripePaymentInfo={args.stripePaymentInfo}
+        />
+      )}
       {/* 仮想通貨決済only */}
       <BidSuccessModal
         closeModal={args.handleCloseBidSuccessModal}
@@ -221,19 +235,25 @@ export const Presentation: React.VFC<Props> = (args) => {
         bidHash={args.taHash ?? ''}
         itemName={args.item.name}
         itemNetworkId={
-          args.item.paymentMethodData.contractDataERC721Shop.networkId
+          // TODO
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          args.item.paymentMethodData.contractDataERC721Shop?.networkId as any
         }
         endAt={endDate}
         price={args.item.price}
       />
-
+      {/* 仮想通貨決済only */}
       <BoughtFixedPriceSuccessModal
         itemName={args.item.name ?? ''}
         price={args.item.price}
         media={args.item.previews[0]}
         isOpen={args.showBuyFixedPriceSuccessModal}
         itemNetworkId={
-          args.item.paymentMethodData.contractDataERC721Shop.networkId
+          // TODO
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          args.item.paymentMethodData.contractDataERC721Shop?.networkId
         }
         unit={getItemPriceUnit(args.item)}
         closeModal={args.handleCloseBuyFixedPriceSuccessModal}

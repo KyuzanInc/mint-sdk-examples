@@ -14,7 +14,7 @@ import { isSaleEnd } from '../../../util/isSaleEnd'
 
 type Props = {
   tradeType: PaymentMethod
-  networkId: NetworkId
+  priceUnit: NetworkId | 'jpy'
   startAt: Date
   endAt: Date
   price: number // 固定価格はここに値段を入れる
@@ -26,7 +26,7 @@ export const SaleInfo: React.VFC<Props> = ({
   startAt,
   endAt,
   price,
-  networkId,
+  priceUnit,
   onComplete,
   tradeType,
   hasBought,
@@ -59,7 +59,7 @@ export const SaleInfo: React.VFC<Props> = ({
               {saleOnGoing && '現在価格'}
               <Icon>
                 <Image
-                  src={getNetworkIconPath(networkId)}
+                  src={getNetworkIconPath(priceUnit)}
                   width={16}
                   height={16}
                   layout={'fixed'}
@@ -68,7 +68,7 @@ export const SaleInfo: React.VFC<Props> = ({
             </StatusTitle>
             <StatusValue>
               <Value>{formatPrice}</Value>
-              <Unit>{getPriceUnit(networkId)}</Unit>
+              <Unit>{getPriceUnit(priceUnit)}</Unit>
             </StatusValue>
           </StatusContent>
         </StatusContainer>
@@ -99,6 +99,7 @@ export const SaleInfo: React.VFC<Props> = ({
       </Container>
     )
   } else {
+    // Fixed Price
     let formatPrice = price!
     if (formatPrice < 0.01) {
       formatPrice = 0.01
@@ -114,7 +115,7 @@ export const SaleInfo: React.VFC<Props> = ({
               <span>{'即決価格'}</span>
               <Icon>
                 <Image
-                  src={getNetworkIconPath(networkId)}
+                  src={getNetworkIconPath(priceUnit)}
                   width={16}
                   height={16}
                   layout={'fixed'}
@@ -123,7 +124,7 @@ export const SaleInfo: React.VFC<Props> = ({
             </StatusTitle>
             <StatusValue>
               <Value>{formatPrice}</Value>
-              <Unit>{getPriceUnit(networkId)}</Unit>
+              <Unit>{getPriceUnit(priceUnit)}</Unit>
             </StatusValue>
           </StatusContent>
         </StatusContainer>

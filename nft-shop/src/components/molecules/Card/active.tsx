@@ -9,8 +9,6 @@ type Props = {
 }
 
 export const ActiveCard: React.FC<Props> = ({ item, onAuctionFinish }) => {
-  if (item.paymentMethodData.paymentMethod === 'credit-card-stripe-fixed-price')
-    throw new Error('not implemented')
   const soldOut = item.availableStockNum === 0
   return (
     <CardBase
@@ -25,7 +23,12 @@ export const ActiveCard: React.FC<Props> = ({ item, onAuctionFinish }) => {
         startAt={new Date(item.startAt)}
         endAt={new Date(item.endAt)}
         tradeType={item.paymentMethodData.paymentMethod}
-        networkId={item.paymentMethodData.contractDataERC721Shop.networkId}
+        priceUnit={
+          item.paymentMethodData.paymentMethod ===
+          'credit-card-stripe-fixed-price'
+            ? 'jpy'
+            : item.paymentMethodData.contractDataERC721Shop.networkId
+        }
         price={item.price}
         onComplete={onAuctionFinish}
         hasBought={soldOut}

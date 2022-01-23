@@ -15,6 +15,7 @@ import { getNetworkIdLabel } from '../../../util/getNetworkIdLabel'
 import { Presentation } from './presentation'
 import router from 'next/router'
 import { CountdownTimeDelta } from 'react-countdown'
+import { createStripePaymentIntentCreator } from '../../../redux/stripePayment'
 
 const WITHIN_TIME = 300000 //5 minutes
 const EACH_TIME = 30000 // 30 seconds
@@ -121,6 +122,25 @@ export const Container: React.VFC = () => {
     [item]
   )
 
+    const stripePaymentInfo = useAppSelector((state) => {
+      return state.app.stripePayment?.data
+    })
+
+  const doBuyWityStripe = useCallback(
+    async (inJapan: boolean) => {
+      if (!item) return
+      if (!walletInfo) return
+        await dispatch(
+          createStripePaymentIntentCreator({
+            itemId: item.id,
+            inJapan,
+            toAddress: walletInfo.address,
+          }) as any
+        )
+    },
+    [item, walletInfo]
+  )
+
   const [walletModalIsOpen, setWalletModalIsOpen] = useState(false)
   const closeWalletModal = useCallback(() => setWalletModalIsOpen(false), [])
   const openWalletModal = useCallback(() => setWalletModalIsOpen(true), [])
@@ -160,7 +180,7 @@ export const Container: React.VFC = () => {
     []
   )
 
-  const handleDoBid = useCallback(() => {
+  const handleOpenSaleModal = useCallback(() => {
     if (auctionIsOutOfDate) {
       return
     }
@@ -189,8 +209,8 @@ export const Container: React.VFC = () => {
         return
       }
 
-      openBidModal()
     }
+    openBidModal()
   }, [item, walletIsConnect, auctionIsOutOfDate, connectedNetworkId])
 
   const [bidSuccessModalIsOpen, setBidSuccessModalIsOpen] = useState(false)
@@ -244,7 +264,9 @@ export const Container: React.VFC = () => {
       handleConnectWallet={connectWallet}
       userWalletBalance={walletInfo?.balance}
       actionModalOpen={actionModalIsOpen}
-      handleOpenSaleActionModal={handleDoBid}
+      handleOpenSaleActionModal={handleOpenSaleModal}
+      handleDoBuyWityStripe={doBuyWityStripe}
+      stripePaymentInfo={stripePaymentInfo}
       handleCloseBidModal={closeActionModal}
       handleChangeInputPrice={onChangeInput}
       bidding={bidding}

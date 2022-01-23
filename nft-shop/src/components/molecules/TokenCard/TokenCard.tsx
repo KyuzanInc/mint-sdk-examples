@@ -1,18 +1,24 @@
 import styled from '@emotion/styled'
+import { NetworkId } from '@kyuzan/mint-sdk-js'
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { color, font, media, curve } from '../../../style'
+import { getOpenSeaLink } from '../../../util/getOpenSeaLink'
 import { MediaContent } from '../../atoms/MediaContent'
+import { SecondaryButton } from '../../atoms/SecondaryButton'
 
 type Props = {
   title: string
+  tokenId: number
+  contractAddress: string
+  networkId: NetworkId
   media: {
     url: string
     mimeType: string
   }
 }
 
-export const TokenCard: React.VFC<Props> = ({ title, media }) => {
+export const TokenCard: React.VFC<Props> = ({ title, media, tokenId, contractAddress, networkId }) => {
   return (
     <Container>
       <CardMedia>
@@ -28,6 +34,13 @@ export const TokenCard: React.VFC<Props> = ({ title, media }) => {
             </LoadingTypography>
           )}
         </Typography>
+        <ExternalButton
+          label={'OpenSeaで見る'}
+          href={getOpenSeaLink({
+            networkId,tokenId, contractAddress
+          })}
+          isExternal={true}
+        />
       </CardContent>
     </Container>
   )
@@ -108,4 +121,9 @@ const Typography = styled.div`
 
 const LoadingTypography = styled.div`
   display: flex;
+`
+
+const ExternalButton = styled(SecondaryButton)`
+  height: 32px;
+  width: 100%;
 `
