@@ -18,7 +18,7 @@
     "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
     "@hookform/resolvers": "2.8.8",
-    "@kyuzan/mint-sdk-js": "6.0.1",
+    "@kyuzan/mint-sdk-js": "6.0.8",
     "@reduxjs/toolkit": "1.7.1",
     "@tippyjs/react": "4.2.6",
     "boring-avatars": "1.6.1",
@@ -34,7 +34,7 @@
     "react-countdown": "2.3.2",
     "react-device-detect": "1.17.0",
     "react-dom": "17.0.2",
-    "react-hook-form": "7.24.1",
+    "react-hook-form": "7.25.0",
     "react-loading-skeleton": "2.2.0",
     "react-modal": "3.14.4",
     "react-redux": "7.2.6",
@@ -46,11 +46,11 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "7.16.10",
-    "@storybook/addon-actions": "6.4.13",
-    "@storybook/addon-essentials": "6.4.13",
-    "@storybook/addon-links": "6.4.13",
-    "@storybook/react": "6.4.13",
+    "@babel/core": "7.16.12",
+    "@storybook/addon-actions": "6.4.14",
+    "@storybook/addon-essentials": "6.4.14",
+    "@storybook/addon-links": "6.4.14",
+    "@storybook/react": "6.4.14",
     "@types/axios": "0.14.0",
     "@types/mime": "2.0.3",
     "@types/node": "14.18.9",
@@ -68,7 +68,7 @@
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.1",
     "prettier": "2.5.1",
-    "typescript": "4.5.4"
+    "typescript": "4.5.5"
   },
   "license": "MIT"
 }
