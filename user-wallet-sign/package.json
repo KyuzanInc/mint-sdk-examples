@@ -1,5 +1,5 @@
 {
-  "name": "login-wallet",
+  "name": "user-wallet-sign",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
