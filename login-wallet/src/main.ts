@@ -3,12 +3,26 @@ import { MintSDK } from '@kyuzan/mint-sdk-js'
 
 // --- configs
 const ACCESS_TOKEN = 'Set your Mint SDK Keys'
-const FORTMATIC_KEY = 'pk_test_7459BD51DE1FC406'
 // ---
 
 const sdk = new MintSDK(ACCESS_TOKEN, {
-  fortmatic: {
-    key: FORTMATIC_KEY,
+  selectWalletModal: {
+    cacheProvider: false,
+  },
+  providers: {
+    torus: {
+      options: {
+        showTorusButton: true,
+        whiteLabel: {
+          theme: {
+            isDark: true,
+            colors: {},
+          },
+          logoDark: '',
+          logoLight: '',
+        },
+      },
+    },
   },
 })
 
@@ -27,6 +41,12 @@ const updateUI = async () => {
     } </p>
         <p>ConnectedNetworkId: ${connectingNetworkId}
     `
+    const openWalletButton = document.createElement('div')
+    openWalletButton.innerHTML = `<p>open</p>`
+    openWalletButton.addEventListener('click', () => {
+      sdk.openWallet()
+    })
+    walletInfoUI.appendChild(openWalletButton)
   } else {
     loginButton.style.visibility = 'visible'
     loginButton?.addEventListener('click', () => {
@@ -44,6 +64,10 @@ sdk.onDisconnect(() => {
 })
 
 sdk.onAccountsChange(() => {
+  updateUI()
+})
+
+sdk.onChainChange(() => {
   updateUI()
 })
 

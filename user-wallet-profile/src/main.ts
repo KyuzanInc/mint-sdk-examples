@@ -3,12 +3,11 @@ import { MintSDK } from '@kyuzan/mint-sdk-js'
 
 // --- configs
 const ACCESS_TOKEN = 'Set your Mint SDK Keys'
-const FORTMATIC_KEY = 'pk_test_7459BD51DE1FC406'
 // ---
 
 const sdk = new MintSDK(ACCESS_TOKEN, {
-  fortmatic: {
-    key: FORTMATIC_KEY,
+  selectWalletModal: {
+    cacheProvider: true,
   },
 })
 
@@ -24,14 +23,15 @@ const updateUI = async () => {
 
     if (info) {
       profileUI.innerHTML = `
-        <img src="${info.avatarImageUrl}"/>
+        <img src="${info.avatarImageUrl}" style="width: 100px;"/>
         <p>name: ${info.profile.displayName}</p>
         <p>bio: ${info.profile.bio}</p>
       `
     } else {
-      // no data
+      window.alert('No profile data. Plz set info via form')
     }
   } else {
+    await sdk.connectWallet()
   }
 }
 
@@ -56,6 +56,10 @@ submitButton.addEventListener('click', async (event) => {
     homepageUrl: '',
   })
 
+  updateUI()
+})
+
+sdk.onConnect(() => {
   updateUI()
 })
 

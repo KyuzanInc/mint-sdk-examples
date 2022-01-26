@@ -2,15 +2,10 @@ import './style.css'
 import { MintSDK } from '@kyuzan/mint-sdk-js'
 
 // --- configs
-const ACCESS_TOKEN = 'Set your Mint SDK Keys'
-const FORTMATIC_KEY = 'pk_test_7459BD51DE1FC406'
+const ACCESS_TOKEN = 'Set your Mint SDK Key'
 // ---
 
-const sdk = new MintSDK(ACCESS_TOKEN, {
-  fortmatic: {
-    key: FORTMATIC_KEY,
-  },
-})
+const sdk = new MintSDK(ACCESS_TOKEN)
 
 const authButton = document.querySelector<HTMLButtonElement>('#submit')!
 authButton.addEventListener('click', async () => {
@@ -18,7 +13,7 @@ authButton.addEventListener('click', async () => {
     try {
       await sdk.connectWallet()
     } catch (_) {
-      alert('connect wallet!')
+      alert('Plz connect wallet!')
     }
   }
 

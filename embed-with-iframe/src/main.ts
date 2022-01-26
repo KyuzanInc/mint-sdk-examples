@@ -3,14 +3,9 @@ import { MintSDK } from '@kyuzan/mint-sdk-js'
 
 // --- configs
 const ACCESS_TOKEN = 'Set your Mint SDK Keys'
-const FORTMATIC_KEY = 'pk_test_7459BD51DE1FC406'
 // ---
 
-const sdk = new MintSDK(ACCESS_TOKEN, {
-  fortmatic: {
-    key: FORTMATIC_KEY,
-  },
-})
+const sdk = new MintSDK(ACCESS_TOKEN)
 
 const updateUI = async () => {
   const loginButton = document.querySelector<HTMLDivElement>('#loginButton')!
