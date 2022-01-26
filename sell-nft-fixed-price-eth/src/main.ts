@@ -2,15 +2,10 @@ import './style.css'
 import { MintSDK, NetworkId } from '@kyuzan/mint-sdk-js'
 
 // --- configs
-const ACCESS_TOKEN = 'Set your Mint SDK Keys'
-const FORTMATIC_KEY = 'pk_test_7459BD51DE1FC406'
+const ACCESS_TOKEN = 'Set your Mint Keys'
 // ---
 
-const sdk = new MintSDK(ACCESS_TOKEN, {
-  fortmatic: {
-    key: FORTMATIC_KEY,
-  },
-})
+const sdk = new MintSDK(ACCESS_TOKEN)
 
 const updateUI = async () => {
   // Get Listings
@@ -22,6 +17,7 @@ const updateUI = async () => {
     onlyAvailableStock: true,
   })
   const listingsUI = document.querySelector<HTMLDivElement>('#listings')!
+  listingsUI.innerHTML = ``
   for await (const item of items) {
     const el = document.createElement('div')
     el.innerHTML = `

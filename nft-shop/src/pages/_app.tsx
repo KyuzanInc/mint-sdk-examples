@@ -39,6 +39,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             -webkit-font-smoothing: antialiased;
             font-smoothing: antialiased;
           }
+          .web3modal-modal-lightbox {
+            z-index: 9999 !important;
+          }
         `}
       />
       <Layout>
