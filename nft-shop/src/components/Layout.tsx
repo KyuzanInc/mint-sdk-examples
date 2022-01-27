@@ -17,7 +17,7 @@ const Layout = ({ children }: Props) => {
   useEffect(() => {
     dispatch(initialWalletActionCreator() as any)
     const sdk = getSdk()
-    sdk?.onAccountsChange(async () => {
+    sdk.onAccountsChange(async () => {
       if (await sdk.isWalletConnect()) {
         const walletInfo = await sdk.getWalletInfo()
         dispatch(
@@ -31,7 +31,14 @@ const Layout = ({ children }: Props) => {
         dispatch(walletSlice.actions.updateWalletInfo(undefined))
       }
     })
-    sdk?.onDisconnect(async () => {
+    sdk.onChainChange(async () => {
+      if (await sdk.isWalletConnect()) {
+        dispatch(initialWalletActionCreator() as any)
+      } else {
+        dispatch(walletSlice.actions.updateWalletInfo(undefined))
+      }
+    })
+    sdk.onDisconnect(async () => {
       dispatch(walletSlice.actions.updateWalletInfo(undefined))
     })
   }, [])

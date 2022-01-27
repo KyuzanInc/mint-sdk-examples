@@ -1,5 +1,5 @@
 {
-  "name": "user-wallet-profile",
+  "name": "wallet-modal-customize",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

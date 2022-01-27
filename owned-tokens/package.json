@@ -1,5 +1,5 @@
 {
-  "name": "user-wallet-profile",
+  "name": "owned-tokens",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

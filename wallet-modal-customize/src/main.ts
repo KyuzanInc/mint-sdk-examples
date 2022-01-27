@@ -8,18 +8,38 @@ const ACCESS_TOKEN = 'Set your Mint SDK Keys'
 const sdk = new MintSDK(ACCESS_TOKEN, {
   selectWalletModal: {
     cacheProvider: false,
+    theme: {
+      background: '#22ff0f',
+      main: 'fff',
+      secondary: '000',
+      border: '#ff0000',
+      hover: '#ff22ff',
+    },
   },
   providers: {
+    // TORUS
     torus: {
+      display: {
+        name: '[[Torus]]',
+        description: 'This is shown at wallet select modal',
+      },
       options: {
         showTorusButton: true,
         whiteLabel: {
           theme: {
-            isDark: true,
-            colors: {},
+            isDark: false,
+            colors: {
+              torusBrand1: '#282c34',
+            },
           },
-          logoDark: '',
-          logoLight: '',
+          logoDark:
+            'https://assets.website-files.com/6049dda9cd045bae2533bfe9/608814a85a17a508dbd0e413_Mint.svg', // Dark logo for light background
+          logoLight:
+            'https://assets.website-files.com/6049dda9cd045bae2533bfe9/608814a85a17a508dbd0e413_Mint.svg', // Light logo for dark background
+          topupHide: false,
+          featuredBillboardHide: true,
+          disclaimerHide: true,
+          defaultLanguage: 'en',
         },
       },
     },

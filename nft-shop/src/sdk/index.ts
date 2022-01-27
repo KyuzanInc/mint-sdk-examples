@@ -6,8 +6,15 @@ export const getSdk = () => {
     sdk = new MintSDK(
       process.env.NEXT_PUBLIC_MINT_SDK_KEY as string,
       {
-        fortmatic: {
-          key: process.env.NEXT_PUBLIC_MINT_FORTMATIC_KEY as string,
+        selectWalletModal: {
+          cacheProvider: false,
+        },
+        providers: {
+          torus: {
+            options: {
+              showTorusButton: true,
+            },
+          },
         },
       },
       {
