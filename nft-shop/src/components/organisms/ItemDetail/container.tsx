@@ -141,6 +141,17 @@ export const Container: React.VFC = () => {
     [item, walletInfo]
   )
 
+  const [stripeSuceessModalIsOpen, setStripeSuceessModalIsOpen] =
+    useState(false)
+  const closeStripeSuceessModalIsOpen = useCallback(
+    () => setStripeSuceessModalIsOpen(false),
+    []
+  )
+  const handlePaymentStripeSuccess = useCallback(() => {
+    setActionModalIsOpen(false)
+    setStripeSuceessModalIsOpen(true)
+  }, [])
+
   const [walletModalIsOpen, setWalletModalIsOpen] = useState(false)
   const closeWalletModal = useCallback(() => setWalletModalIsOpen(false), [])
   const openWalletModal = useCallback(() => setWalletModalIsOpen(true), [])
@@ -254,6 +265,11 @@ export const Container: React.VFC = () => {
       handleOpenPhysicalModal={openPhysicalModal}
       aboutAutoExtensionAuctionModalIsOpen={
         aboutAutoExtensionAuctionModalIsOpen
+      }
+      showBuyFixedPriceWithStripeSuccessModal={stripeSuceessModalIsOpen}
+      handlePaymentSuccess={handlePaymentStripeSuccess}
+      handleCloseBuyFixedPriceWithStripeSuccessModal={
+        closeStripeSuceessModalIsOpen
       }
       handleOpenAutoExtensionModal={openAutoExtensionModal}
       handleCloseAutoExtensionModal={closeAutoExtensionModal}

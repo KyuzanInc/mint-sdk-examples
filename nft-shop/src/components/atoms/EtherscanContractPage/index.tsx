@@ -3,15 +3,18 @@ import { NetworkId } from '@kyuzan/mint-sdk-js'
 import Image from 'next/image'
 import React from 'react'
 import { color, font, media } from '../../../style'
-import { getTransactionLink } from '../../../util/getTransactionLink'
+import { getContractPageLink } from '../../../util/getContractPageLink'
 
 type Props = {
   networkId: NetworkId
-  hash: string
+  contractAddress: string
 }
 
-export const TransactionStatus: React.FC<Props> = ({ networkId, hash }) => {
-  const url = getTransactionLink(hash, networkId)
+export const EtherscanContractPage: React.FC<Props> = ({
+  networkId,
+  contractAddress,
+}) => {
+  const url = getContractPageLink(contractAddress, networkId)
   return (
     <Container>
       <InnerContainer>
@@ -20,9 +23,9 @@ export const TransactionStatus: React.FC<Props> = ({ networkId, hash }) => {
           <Status>処理中</Status>
         </StatusContainer>
         <TransactionContainer>
-          <Title>トランザクション</Title>
+          <Title>Etherscan</Title>
           <TransactionLink href={url} target="blank">
-            トランザクションをみる
+            Etherscanでみる
             <LinkContainer>
               <Image
                 src={'/images/external-link.svg'}

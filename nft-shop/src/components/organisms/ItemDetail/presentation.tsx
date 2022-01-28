@@ -17,6 +17,7 @@ import { PrimaryButton } from '../../atoms/PrimaryButton'
 import { isOnSale } from '../../../util/isOnSale'
 import { CountdownTimeDelta } from 'react-countdown'
 import { SaleActionModalWithStripe } from '../../molecules/SaleActionModalWithStripe'
+import { BoughtFixedPriceWithStripeSuccessModal } from '../../molecules/BoughtFixedPriceWithStripeSuccessModal'
 
 type Props =
   | {
@@ -47,6 +48,9 @@ type Props =
       handleDoBid: () => void
       handleDoBuy: (inJapan: boolean) => void
       handleDoBuyWityStripe: (inJapan: boolean) => void
+      showBuyFixedPriceWithStripeSuccessModal: boolean
+      handlePaymentSuccess: () => void
+      handleCloseBuyFixedPriceWithStripeSuccessModal: () => void
       stripePaymentInfo: null | {
         paymentIntentClientSecret: string
         stripe: Stripe | null
@@ -206,6 +210,7 @@ export const Presentation: React.VFC<Props> = (args) => {
           errorText={args.errorText}
         />
       )}
+      {/* Credit Card Input Modal */}
       {args.item.paymentMethodData.paymentMethod ===
         'credit-card-stripe-fixed-price' && (
         <SaleActionModalWithStripe
@@ -223,6 +228,7 @@ export const Presentation: React.VFC<Props> = (args) => {
           isValidationError={args.isValidationError}
           errorText={args.errorText}
           stripePaymentInfo={args.stripePaymentInfo}
+          onPaymentSuccess={args.handlePaymentSuccess}
         />
       )}
       {/* 仮想通貨決済only */}
@@ -260,6 +266,16 @@ export const Presentation: React.VFC<Props> = (args) => {
         closeModal={args.handleCloseBuyFixedPriceSuccessModal}
         endAt={endDate}
         txHash={args.taHash ?? ''}
+      />
+      {/* Stripe決済only */}
+      <BoughtFixedPriceWithStripeSuccessModal
+        itemName={args.item.name ?? ''}
+        price={args.item.price}
+        media={args.item.previews[0]}
+        isOpen={args.showBuyFixedPriceWithStripeSuccessModal}
+        unit={getItemPriceUnit(args.item)}
+        closeModal={args.handleCloseBuyFixedPriceWithStripeSuccessModal}
+        endAt={endDate}
       />
       <AboutPhysicalModal
         isOpen={args.aboutPhysicalModalIsOpen}

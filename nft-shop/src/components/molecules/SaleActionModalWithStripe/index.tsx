@@ -25,6 +25,7 @@ type Props = {
   closeModal: () => void
   loading: boolean
   doBuy: (inJapan: boolean) => void
+  onPaymentSuccess: () => void
   isValidationError?: boolean
   errorText?: string
   stripePaymentInfo: null | {
@@ -39,6 +40,7 @@ export const SaleActionModalWithStripe: React.VFC<Props> = ({
   loading,
   unit,
   doBuy,
+  onPaymentSuccess,
   media,
   endAt,
   price,
@@ -119,22 +121,21 @@ export const SaleActionModalWithStripe: React.VFC<Props> = ({
                       type={'button'}
                     />
                   )
-                ) : (
+                ) : stripePaymentInfo.paymentIntentClientSecret ? (
                   <Elements
                     options={{
-                      clientSecret:
-                        stripePaymentInfo.paymentIntentClientSecret!,
+                      clientSecret: stripePaymentInfo.paymentIntentClientSecret,
                       appearance,
                     }}
                     stripe={Promise.resolve(stripePaymentInfo.stripe)}
                   >
                     <CheckoutForm
-                      clientSecret={
-                        stripePaymentInfo.paymentIntentClientSecret!
-                      }
+                      clientSecret={stripePaymentInfo.paymentIntentClientSecret}
+                      walletAddress={walletAddress}
+                      onSuccess={onPaymentSuccess}
                     />
                   </Elements>
-                )}
+                ) : null}
                 <NotFinishedContainer>
                   <ToolTip
                     description={

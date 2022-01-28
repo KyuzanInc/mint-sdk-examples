@@ -7,7 +7,7 @@ export const getSdk = () => {
       process.env.NEXT_PUBLIC_MINT_SDK_KEY as string,
       {
         selectWalletModal: {
-          cacheProvider: false,
+          cacheProvider: true,
         },
         providers: {
           torus: {
