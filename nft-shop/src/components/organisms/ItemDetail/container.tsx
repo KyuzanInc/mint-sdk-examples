@@ -214,7 +214,9 @@ export const Container: React.VFC = () => {
         dispatch(
           dialogSlice.actions.showDialog({
             title: 'ネットワークを変更してください',
-            content: `${getNetworkIdLabel(31337 ?? 4)}に接続してください。`,
+            content: `${getNetworkIdLabel(
+              item.paymentMethodData.contractDataERC721Shop.networkId
+            )}に接続してください。`,
           })
         )
         return

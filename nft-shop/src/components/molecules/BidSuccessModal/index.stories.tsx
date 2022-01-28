@@ -1,7 +1,7 @@
-import React from 'react'
 import { action } from '@storybook/addon-actions'
-import { BidSuccessModal } from '.'
 import { addDays } from 'date-fns'
+import React from 'react'
+import { BidSuccessModal } from '.'
 
 export const Basic: React.VFC = () => (
   <BidSuccessModal

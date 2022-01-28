@@ -40,6 +40,7 @@ export const CardUL = styled.ul`
   width: 100%;
   display: flex;
   margin: 0 0 64px 0;
+  flex-wrap: wrap;
   ${media.sp`
     width:100%;
     flex-direction: column;

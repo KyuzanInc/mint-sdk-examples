@@ -1,12 +1,12 @@
 import styled from '@emotion/styled'
 import Image from 'next/image'
 import React from 'react'
-import { ModalWrap } from '../../atoms/ModalWrap'
 import { color, font, media } from '../../../style'
+import { CloseButton } from '../../atoms/CloseButton'
 import { MediaContent } from '../../atoms/MediaContent'
+import { ModalWrap } from '../../atoms/ModalWrap'
 import { StatusDetail } from '../Detail'
 import { useMedia } from '../../../util/useMedia'
-import { CloseButton } from '../../atoms/CloseButton'
 
 type Props = {
   itemName: string
@@ -183,13 +183,5 @@ const Description = styled.div`
   margin: 32px 0;
   ${media.sp`
     ${font.mont.caption};
-  `}
-`
-
-const TransactionContainer = styled.div`
-  width: 100%;
-  margin: 64px 0;
-  ${media.sp`
-    margin:16px 0;
   `}
 `

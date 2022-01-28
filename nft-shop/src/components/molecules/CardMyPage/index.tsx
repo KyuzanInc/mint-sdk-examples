@@ -81,6 +81,9 @@ export const CardMyPage: React.VFC<Props> = ({
               startAt={new Date(item.item.startAt)}
               endAt={new Date(item.item.endAt)}
               tradeType={item.item.paymentMethodData.paymentMethod}
+              // TODO
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               networkId={
                 item.item.paymentMethodData.contractDataERC721Shop.networkId
               }
