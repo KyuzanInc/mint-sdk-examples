@@ -48,7 +48,6 @@ export const CardMyPage: React.VFC<Props> = ({
   const auctionIsEnd = new Date(item.item.endAt) < now
   const userIsHighestBidder =
     item.item.bids[0].bidder === userWalletAddress?.toLocaleLowerCase()
-  console.log(item.item.bids[0].bidder)
 
   const winning = !auctionIsEnd && userIsHighestBidder
   const losing = !auctionIsEnd && !userIsHighestBidder
@@ -265,7 +264,6 @@ const MediaContainer = styled.div<{ height: number }>`
   display: flex;
   justify-content: center;
   overflow: hidden;
-  /* height:${({ height }) => height}; */
   ${(props) => ({ height: props.height })}
   width:${(props) => props.height}px;
   //skeleton用の記述

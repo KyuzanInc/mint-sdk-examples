@@ -18,7 +18,13 @@ type Props = {
   }
 }
 
-export const TokenCard: React.VFC<Props> = ({ title, media, tokenId, contractAddress, networkId }) => {
+export const TokenCard: React.VFC<Props> = ({
+  title,
+  media,
+  tokenId,
+  contractAddress,
+  networkId,
+}) => {
   return (
     <Container>
       <CardMedia>
@@ -37,7 +43,9 @@ export const TokenCard: React.VFC<Props> = ({ title, media, tokenId, contractAdd
         <ExternalButton
           label={'OpenSeaで見る'}
           href={getOpenSeaLink({
-            networkId,tokenId, contractAddress
+            networkId,
+            tokenId,
+            contractAddress,
           })}
           isExternal={true}
         />
@@ -125,5 +133,6 @@ const LoadingTypography = styled.div`
 
 const ExternalButton = styled(SecondaryButton)`
   height: 32px;
+  margin-top: 16px;
   width: 100%;
 `

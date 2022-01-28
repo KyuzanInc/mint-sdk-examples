@@ -113,14 +113,6 @@ export const SaleInfo: React.VFC<Props> = ({
           <StatusContent>
             <StatusTitle>
               <span>{'即決価格'}</span>
-              <Icon>
-                <Image
-                  src={getNetworkIconPath(priceUnit)}
-                  width={16}
-                  height={16}
-                  layout={'fixed'}
-                />
-              </Icon>
             </StatusTitle>
             <StatusValue>
               <Value>{formatPrice}</Value>

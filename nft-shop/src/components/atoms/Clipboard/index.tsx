@@ -67,7 +67,6 @@ const CopyIcon = styled.div`
 `
 
 const CheckIcon = styled.div`
-  margin-left: 8px;
   cursor: pointer;
   position: relative;
 `

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import * as mime from 'mime'
-import { ItemStock, TokenERC721 } from '@kyuzan/mint-sdk-js'
+import { ContractERC721, ItemStock, TokenERC721 } from '@kyuzan/mint-sdk-js'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { color, font, media } from '../../../style'
@@ -18,6 +18,7 @@ import { ipfsToHttp } from '../../../util/ipfsToHTTP'
 type Props = {
   bidedItems: ItemStock[]
   ownTokens: TokenERC721[]
+  contractERC721s: Record<string, ContractERC721>
   waitingBidedItems: boolean
   waitingOwnTokens: boolean
   showShippingInfoModal: boolean
@@ -50,6 +51,7 @@ export const Presentation: React.VFC<Props> = ({
   userWalletAddress,
   withdrawingItemId,
   ownTokens,
+  contractERC721s,
   shippingInfo,
   onConnectWallet,
   connectingWallet,
@@ -107,7 +109,9 @@ export const Presentation: React.VFC<Props> = ({
                   height={16}
                 />
               </NotFoundIcon>
-              <NotFoundText>商品が見当たらないときは</NotFoundText>
+              <NotFoundText>
+                購入・入札した商品が見当たらないときは
+              </NotFoundText>
             </NotFoundIconText>
           </ToolTip>
         </NotFoundContainer>
@@ -173,9 +177,12 @@ export const Presentation: React.VFC<Props> = ({
                 return (
                   <OwnedItemContainer key={item.id}>
                     <TokenCard
-                      // TODO
-                      contractAddress={'0x000'}
-                      networkId={4}
+                      contractAddress={
+                        contractERC721s[item.contractERC721Id]?.address
+                      }
+                      networkId={
+                        contractERC721s[item.contractERC721Id]?.networkId
+                      }
                       tokenId={item.tokenId}
                       title={(item.metadata as any).name as string}
                       media={{
@@ -231,8 +238,9 @@ const AccountInfoContainer = styled.div`
 const ItemsContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
+  width: 100%;
   max-width: 840px;
 `
 

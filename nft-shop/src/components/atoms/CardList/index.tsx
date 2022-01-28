@@ -31,7 +31,6 @@ export const EmptyTitle = styled(ListComponent)`
 
 export const CardList = styled.li`
   margin: 0 16px 24px 0;
-  float: left;
   ${media.mdsp`
     margin: 0 0 24px;
   `}
@@ -39,14 +38,11 @@ export const CardList = styled.li`
 
 export const CardUL = styled.ul`
   width: 100%;
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(264px, 1fr));
-  grid-auto-rows: minmax(100px, auto);
+  display: flex;
   margin: 0 0 64px 0;
   ${media.sp`
     width:100%;
-    grid-template-columns: 1fr;
+    flex-direction: column;
   `}
 `
 

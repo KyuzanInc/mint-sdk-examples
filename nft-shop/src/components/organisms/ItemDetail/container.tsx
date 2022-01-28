@@ -122,21 +122,21 @@ export const Container: React.VFC = () => {
     [item]
   )
 
-    const stripePaymentInfo = useAppSelector((state) => {
-      return state.app.stripePayment?.data
-    })
+  const stripePaymentInfo = useAppSelector((state) => {
+    return state.app.stripePayment?.data
+  })
 
   const doBuyWityStripe = useCallback(
     async (inJapan: boolean) => {
       if (!item) return
       if (!walletInfo) return
-        await dispatch(
-          createStripePaymentIntentCreator({
-            itemId: item.id,
-            inJapan,
-            toAddress: walletInfo.address,
-          }) as any
-        )
+      await dispatch(
+        createStripePaymentIntentCreator({
+          itemId: item.id,
+          inJapan,
+          toAddress: walletInfo.address,
+        }) as any
+      )
     },
     [item, walletInfo]
   )
@@ -208,7 +208,6 @@ export const Container: React.VFC = () => {
         )
         return
       }
-
     }
     openBidModal()
   }, [item, walletIsConnect, auctionIsOutOfDate, connectedNetworkId])
@@ -263,6 +262,7 @@ export const Container: React.VFC = () => {
       handleCloseConnectWalletModal={closeWalletModal}
       handleConnectWallet={connectWallet}
       userWalletBalance={walletInfo?.balance}
+      userWalletAddress={walletInfo?.address}
       actionModalOpen={actionModalIsOpen}
       handleOpenSaleActionModal={handleOpenSaleModal}
       handleDoBuyWityStripe={doBuyWityStripe}

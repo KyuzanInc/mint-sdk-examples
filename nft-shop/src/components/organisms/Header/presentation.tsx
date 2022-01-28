@@ -65,10 +65,10 @@ export const Presentation: React.VFC<Props> = ({
                       <WalletBalance>{walletBalance}</WalletBalance>
                       <WalletAddress>
                         {walletAddress?.slice(0, 8)}
+                        <HeaderClipBoard text={walletAddress} />
                       </WalletAddress>
                     </WalletDetail>
                   </WalletInfoContainer>
-                  <HeaderClipBoard text={walletAddress} />
                 </WalletAnchor>
               </Link>
             ) : loading ? (
@@ -149,9 +149,7 @@ const WalletAnchor = styled(Anchor)`
   position: relative;
 `
 const HeaderClipBoard = styled(ClipBoard)`
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  margin-left: 4px;
 `
 
 const WalletSection = styled.div`

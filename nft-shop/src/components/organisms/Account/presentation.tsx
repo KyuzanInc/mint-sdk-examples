@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { TokenERC721 } from '@kyuzan/mint-sdk-js'
+import { ContractERC721, TokenERC721 } from '@kyuzan/mint-sdk-js'
 import * as mime from 'mime'
 import React from 'react'
 import { color, media } from '../../../style'
@@ -14,6 +14,7 @@ type Props = {
   waitingOwnTokens: boolean
   userWalletAddress: string | undefined
   ownTokens: TokenERC721[]
+  contractERC721s: Record<string, ContractERC721>
   accountDisplayName: string | undefined
   accountBio: string | undefined
   accountProfileUrl: string | undefined
@@ -27,6 +28,7 @@ export const Presentation: React.VFC<Props> = ({
   waitingOwnTokens,
   userWalletAddress,
   ownTokens,
+  contractERC721s,
   accountDisplayName,
   accountBio,
   accountProfileUrl,
@@ -70,6 +72,13 @@ export const Presentation: React.VFC<Props> = ({
               return (
                 <CardList key={item.tokenURI}>
                   <TokenCard
+                    contractAddress={
+                      contractERC721s[item.contractERC721Id]?.address
+                    }
+                    networkId={
+                      contractERC721s[item.contractERC721Id]?.networkId
+                    }
+                    tokenId={item.tokenId}
                     title={(item.metadata as any).name as string}
                     media={{
                       url: (item.metadata as any).image as string,

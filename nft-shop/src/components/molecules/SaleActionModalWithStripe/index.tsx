@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 import React, { useState } from 'react'
-import CheckoutForm  from './CheckForm'
+import CheckoutForm from './CheckForm'
 import Image from 'next/image'
-import { color, font,  media } from '../../../style'
+import { color, font, media } from '../../../style'
 import { PrimaryButton } from '../../atoms/PrimaryButton'
 import { MediaContent } from '../../atoms/MediaContent'
 import { StatusDetail } from '../Detail'
@@ -11,7 +11,7 @@ import { useMedia } from '../../../util/useMedia'
 import { PaymentMethod, Stripe } from '@kyuzan/mint-sdk-js'
 import { CloseButton } from '../../atoms/CloseButton'
 import { ModalWrap } from '../../atoms/ModalWrap'
-import { Elements } from "@stripe/react-stripe-js";
+import { Elements } from '@stripe/react-stripe-js'
 
 type Props = {
   isOpen: boolean
@@ -21,6 +21,7 @@ type Props = {
   price: number
   unit: string
   media: { url: string; mimeType: string } | undefined
+  walletAddress: string
   closeModal: () => void
   loading: boolean
   doBuy: (inJapan: boolean) => void
@@ -45,6 +46,7 @@ export const SaleActionModalWithStripe: React.VFC<Props> = ({
   itemName,
   itemTradeType,
   stripePaymentInfo,
+  walletAddress,
 }) => {
   const isMobile = useMedia().isMobile
   const [inJapan, setInJapan] = useState(false)
@@ -74,9 +76,14 @@ export const SaleActionModalWithStripe: React.VFC<Props> = ({
             <>
               <ContentTitle>購入を確定する</ContentTitle>
               <InputPriceContainer>
+                <SubTitle>価格</SubTitle>
                 <InputUnit>
                   {price} {unit}
                 </InputUnit>
+              </InputPriceContainer>
+              <InputPriceContainer>
+                <SubTitle>ウォレットアドレス</SubTitle>
+                <InputPrice>{walletAddress}</InputPrice>
               </InputPriceContainer>
               <CheckInJapanContainer>
                 <label>
@@ -84,7 +91,7 @@ export const SaleActionModalWithStripe: React.VFC<Props> = ({
                     type={'checkbox'}
                     checked={inJapan}
                     onChange={(e) => setInJapan(e.target.checked)}
-                  />{' '}
+                  />
                   私は日本に在住しています
                   <ToolTip
                     description={
@@ -263,12 +270,18 @@ const ContentTitle = styled.p`
 
 const InputPriceContainer = styled.div`
   width: 100%;
-  margin: 32px 0 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  margin: 16px 0 0 0;
   ${media.sp`
     margin:16px 0 0 0;
+  `}
+`
+
+const SubTitle = styled.div`
+  color: ${color.primary};
+  ${font.mont.caption}
+  margin-left: 4px;
+  ${media.sp`
+    ${font.mont.caption}
   `}
 `
 
@@ -278,6 +291,14 @@ const InputUnit = styled.span`
   margin-left: 4px;
   ${media.sp`
     ${font.mont.h3}
+  `}
+`
+
+const InputPrice = styled(InputUnit)`
+  ${font.mont.label}
+  margin-top: 16px;
+  ${media.sp`
+    ${font.mont.label}
   `}
 `
 
@@ -299,7 +320,7 @@ const NotFoundIcon = styled.span`
 `
 
 const CheckInJapanContainer = styled.div`
-  margin-top: 8px;
+  margin-top: 16px;
 `
 
 const NotFinishedContainer = styled.div`

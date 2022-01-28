@@ -13,6 +13,7 @@ import { connectWalletActionCreator } from '../../../redux/wallet'
 import { Presentation } from './presentation'
 import { dialogSlice } from '../../../redux/dialog'
 import { getNetworkIdLabel } from '../../../util/getNetworkIdLabel'
+import { getContractERC721sActionCreator } from '../../../redux/contractERC721s'
 
 export const Container: React.VFC = () => {
   const dispatch = useAppDispatch()
@@ -29,6 +30,10 @@ export const Container: React.VFC = () => {
     return state.app.myItems.data.bidedItems.filter(
       (i) => i.status !== 'minted'
     )
+  })
+
+  const contractERC721s = useAppSelector((state) => {
+    return state.app.contractERC721s.data
   })
 
   const waitingBidedItems = useAppSelector((state) => {
@@ -91,8 +96,9 @@ export const Container: React.VFC = () => {
     (state) => state.app.shippingInfo.data.shippingInfo
   )
 
-  const [selectShippingInfoItemId, setSelectShippingInfoItemId] =
-    useState<string | undefined>(undefined)
+  const [selectShippingInfoItemId, setSelectShippingInfoItemId] = useState<
+    string | undefined
+  >(undefined)
 
   const showShippingInfo = (itemId: string) => {
     setSelectShippingInfoItemId(itemId)
@@ -130,11 +136,24 @@ export const Container: React.VFC = () => {
   }, [walletInfo?.address])
 
   useEffect(() => {
+    if (!waitingOwnTokens) {
+      ownTokens.forEach((token) => {
+        dispatch(
+          getContractERC721sActionCreator({
+            contractERC721Id: token.contractERC721Id,
+          }) as any
+        )
+      })
+    }
+  }, [ownTokens, waitingOwnTokens])
+
+  useEffect(() => {
     updateItems()
   }, [walletInfo?.address])
 
   return (
     <Presentation
+      contractERC721s={contractERC721s}
       connectingWallet={connectingWallet}
       onConnectWallet={connectWallet}
       waitingBidedItems={waitingBidedItems}

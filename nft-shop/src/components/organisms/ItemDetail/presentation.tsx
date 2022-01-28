@@ -34,6 +34,7 @@ type Props =
       handleCloseConnectWalletModal: () => void
       connectingWallet: boolean
       userWalletBalance: string | undefined
+      userWalletAddress: string | undefined
       actionModalOpen: boolean
       bidding: boolean
       handleCloseBidModal: () => void
@@ -205,12 +206,12 @@ export const Presentation: React.VFC<Props> = (args) => {
           errorText={args.errorText}
         />
       )}
-      {console.log(args.actionModalOpen)}
       {args.item.paymentMethodData.paymentMethod ===
         'credit-card-stripe-fixed-price' && (
         <SaleActionModalWithStripe
           itemTradeType={tradeType}
           itemName={args.item.name}
+          walletAddress={args.userWalletAddress ?? ''}
           price={args.item.price}
           endAt={endDate}
           media={args.item.previews[0]}

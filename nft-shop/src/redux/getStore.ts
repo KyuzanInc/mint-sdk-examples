@@ -1,4 +1,4 @@
-import { stripePaymentSlice } from './stripePayment/index';
+import { stripePaymentSlice } from './stripePayment/index'
 import {
   accountTokensSlice,
   initialAccountTokensState,
@@ -32,6 +32,10 @@ import { myAccountInfoSlice, initialMyAccountInfoState } from './myAccountInfo'
 import { accountInfoSlice, initialAccountInfoState } from './accountInfo'
 import { dialogSlice, initialDialogState } from './dialog'
 import { initialStripePaymentState } from './stripePayment'
+import {
+  initialContractERC721State,
+  contractERC721sSlice,
+} from './contractERC721s'
 
 const rootReducer = combineReducers({
   router: routerReducer,
@@ -47,6 +51,7 @@ const rootReducer = combineReducers({
     myAccountInfoEdit: myAccountInfoEditSlice.reducer,
     accountInfo: accountInfoSlice.reducer,
     accountTokens: accountTokensSlice.reducer,
+    contractERC721s: contractERC721sSlice.reducer,
   }),
   ui: combineReducers({
     dialog: dialogSlice.reducer,
@@ -67,6 +72,7 @@ const getInitialState = (asPath?: string) => {
       myAccountInfoEdit: initialMyAccountInfoEditState,
       accountInfo: initialAccountInfoState,
       accountTokens: initialAccountTokensState,
+      contractERC721s: initialContractERC721State,
     },
     ui: {
       dialog: initialDialogState,
