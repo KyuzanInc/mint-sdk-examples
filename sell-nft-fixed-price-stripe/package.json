@@ -1,5 +1,5 @@
 {
-  "name": "sell-nft-fixed-price-eth",
+  "name": "sell-nft-fixed-price-stripe",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
