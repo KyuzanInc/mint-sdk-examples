@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sell NFT(fixed-price-eth)</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="listings"></div>
+      <!-- Display a payment form -->
+      <form id="payment-form">
+        <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+        </div>
+        🚨 Please use this test cards num -> https://stripe.com/docs/testing#cards
+        <button id="submit" style="visibility: hidden;">
+          <span id="button-text">Pay now</span>
+        </button>
+      </form>
+      <div style="margin-top: 40px;">
+        ---- ⬇️ Owned NFTs ⬇️ -----
+      </div>
+      <button id="loginButton">Connect Wallet</button>
+      <div id="myNFTs">
+        <p>⚠️ The update will take a few minutes to reflect the results after finalization</p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
