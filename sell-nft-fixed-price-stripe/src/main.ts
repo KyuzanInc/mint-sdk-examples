@@ -12,7 +12,7 @@ const sdk = new MintSDK(ACCESS_TOKEN, {
 })
 
 const updateUI = async () => {
-  // Get Listings
+  // Payment Process
   const items = await sdk.getItems({
     perPage: 1,
     page: 1,
@@ -91,14 +91,7 @@ const updateUI = async () => {
             // be redirected to an intermediate site first to authorize the payment, then
             // redirected to the `return_url`.
             if (error) {
-              if (
-                error?.type === 'card_error' ||
-                error?.type === 'validation_error'
-              ) {
-                alert(error.message)
-              } else {
-                alert('An unexpected error occured.')
-              }
+              alert(error.message)
             } else {
               alert(
                 'success!! Wait until the process is finished. Then try loading it again.',
@@ -109,6 +102,7 @@ const updateUI = async () => {
         alert(err)
       }
     })
+
     el.appendChild(buyButton)
     listingsUI.appendChild(el)
   }
