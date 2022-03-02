@@ -18,7 +18,7 @@
     "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
     "@hookform/resolvers": "2.8.8",
-    "@kyuzan/mint-sdk-js": "7.0.0",
+    "@kyuzan/mint-sdk-js": "8.2.0",
     "@reduxjs/toolkit": "1.7.2",
     "@tippyjs/react": "4.2.6",
     "boring-avatars": "1.6.1",
