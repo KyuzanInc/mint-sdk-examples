@@ -7,13 +7,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "typescript": "4.6.2",
-    "vite": "2.8.6"
+    "typescript": "4.6.3",
+    "vite": "2.9.5"
   },
   "dependencies": {
     "@esbuild-plugins/node-globals-polyfill": "0.1.1",
     "@esbuild-plugins/node-modules-polyfill": "0.1.4",
-    "@kyuzan/mint-sdk-js": "8.2.1",
+    "@kyuzan/mint-sdk-js": "8.4.0",
     "rollup-plugin-node-polyfills": "0.2.1"
   }
 }
