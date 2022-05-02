@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CSS only -->
+ <title>Sell NFT With Physical Item</title>
+  <!-- JavaScript Bundle with Popper -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Shipping Information</h1>
+    <div class="container">
+      <button id="clearButton" type="submit" class="btn btn-primary mb-3">Clear Everything</button>
+    </div>
+    <div class="container">
+      <input id="itemStockId" class="form-control form-control-lg" type="text" placeholder="itemStockId"
+        aria-label=".form-control-lg example" />
+      <button id="fetchButton" type="submit" class="btn btn-primary mb-3">Fetch shipping address</button>
+    </div>
+    <div class="container py-2">
+      <input id="status" class="form-control form-control-lg" type="text" placeholder="status"
+        aria-label=".form-control-lg example" disabled="true" />
+    </div>
+    <h1>Shipping Information Form</h1>
+    <div class="container">
+      <input id="firstName" class="form-control form-control-lg" type="text" placeholder="firstName"
+        aria-label=".form-control-lg example" />
+      <input id="lastName" class="form-control form-control-lg" type="text" placeholder="lastName"
+        aria-label=".form-control-lg example" />
+      <input id="country" class="form-control form-control-lg" type="text" placeholder="country"
+        aria-label=".form-control-lg example" />
+      <input id="email" class="form-control form-control-lg" type="text" placeholder="email"
+        aria-label=".form-control-lg example" />
+      <input id="postalCode" class="form-control form-control-lg" type="text" placeholder="postalCode"
+        aria-label=".form-control-lg example" />
+      <input id="city" class="form-control form-control-lg" type="text" placeholder="city"
+        aria-label=".form-control-lg example" />
+      <input id="state" class="form-control form-control-lg" type="text" placeholder="state"
+        aria-label=".form-control-lg example" />
+      <input id="address1" class="form-control form-control-lg" type="text" placeholder="address1"
+        aria-label=".form-control-lg example" />
+      <input id="phoneNumber" class="form-control form-control-lg" type="text" placeholder="phoneNumber"
+        aria-label=".form-control-lg example" />
+      <input id="address2" class="form-control form-control-lg" type="text" placeholder="address2"
+        aria-label=".form-control-lg example" />
+      <input id="address3" class="form-control form-control-lg" type="text" placeholder="address3"
+        aria-label=".form-control-lg example" />
+    </div>
+    <button id="registerButton" type="submit" class="btn btn-primary mb-3">Register shipping address</button>
+  </div>
+</body>
+<script type="module" src="/src/main.ts"></script>
+
+</html>
