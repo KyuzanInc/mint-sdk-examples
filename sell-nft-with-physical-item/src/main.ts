@@ -1,26 +1,9 @@
 import './style.css'
 import { MintSDK } from '@kyuzan/mint-sdk-js'
 
-const BACKEND_URL = ''
 const MINT_SDK_KEY = ''
 
-const sdk = new MintSDK(
-  MINT_SDK_KEY,
-  {
-    selectWalletModal: {
-      cacheProvider: false,
-    },
-    providers: {
-      torus: {
-        options: {
-          showTorusButton: true,
-        },
-      },
-    },
-  },
-  {
-    backendUrl: BACKEND_URL,
-  })
+const sdk = new MintSDK(MINT_SDK_KEY)
 
 sdk.connectWallet()
 
