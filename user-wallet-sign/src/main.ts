@@ -19,6 +19,7 @@ const sdk = new MintSDK(ACCESS_TOKEN, {
     walletconnect: {
       options: {
         infuraId: INFURA_ID,
+        network: 'mainnet'
       }
     }
   },
