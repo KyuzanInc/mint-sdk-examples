@@ -3,9 +3,27 @@ import { MintSDK } from '@kyuzan/mint-sdk-js'
 
 // --- configs
 const ACCESS_TOKEN = 'Set your Mint SDK Key'
+const INFURA_ID = 'Set your INFURA ID HERE'
 // ---
 
-const sdk = new MintSDK(ACCESS_TOKEN)
+const sdk = new MintSDK(ACCESS_TOKEN, {
+  selectWalletModal: {
+    cacheProvider: false,
+  },
+  providers: {
+    torus: {
+      options: {
+        showTorusButton: true,
+      },
+    },
+    walletconnect: {
+      options: {
+        infuraId: INFURA_ID,
+        network: 'mainnet'
+      }
+    }
+  },
+})
 
 const authButton = document.querySelector<HTMLButtonElement>('#submit')!
 authButton.addEventListener('click', async () => {
