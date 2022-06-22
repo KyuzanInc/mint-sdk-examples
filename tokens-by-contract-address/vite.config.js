@@ -4,6 +4,7 @@ import rollupNodePolyFill from 'rollup-plugin-node-polyfills'
 
 export default {
   optimizeDeps: {
+    include: ['@kyuzan/mint-sdk-js'],
     esbuildOptions: {
       // Node.js global to browser globalThis
       define: {
