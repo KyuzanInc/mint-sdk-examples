@@ -8,47 +8,45 @@ const ACCESS_TOKEN = 'Set your Mint Keys'
 const sdk = new MintSDK(ACCESS_TOKEN)
 
 const updateUI = async () => {
-  // Get Owned NFTs
-  const loginButton = document.querySelector<HTMLDivElement>('#loginButton')!
-  if (await sdk.isWalletConnect()) {
-    loginButton.style.visibility = 'hidden'
-    const connectedWallet = await sdk.getWalletInfo()
-    const { address } = connectedWallet
-    const ownedNFTs = await sdk.getTokensByAddress({
-      walletAddress: address,
-      perPage: 100,
-      page: 1,
+  const searchButton = document.querySelector<HTMLDivElement>('#searchButton')!
+
+  searchButton.addEventListener('click', async () => {
+    const contractAddressInput = document.querySelector<HTMLInputElement>('#contractAddressInput')!
+    const contractAddress = contractAddressInput.value?.trim()
+    const tokenList = document.querySelector<HTMLDivElement>('#tokenList')!
+    tokenList.innerHTML = ''
+
+    if (!contractAddress) {
+      return
+    }
+
+    const tokens = await sdk.getTokenERC721s(contractAddress)
+
+    if (!tokens.length) {
+      return
+    }
+
+    const contract = await sdk.getContractERC721ById({
+      contractId: tokens[0].contractERC721Id,
     })
-    const myNFTsUI = document.querySelector<HTMLDivElement>('#myNFTs')!
-    for await (const nft of ownedNFTs) {
+
+    tokens.forEach(token => {
       const el = document.createElement('div')
-      const contract = await sdk.getContractERC721ById({
-        contractId: nft.contractERC721Id,
-      })
       el.innerHTML = `
         🖼
         ContractAddress: ${contract.address}
-        TokenId: ${nft.tokenId}
-        TokenURI: ${nft.tokenURI}
+        TokenId: ${token.tokenId}
+        TokenURI: ${token.tokenURI}
         OpenSeaLink: <a href="${getOpenSeaLink({
           networkId: contract.networkId,
           contractAddress: contract.address,
-          tokenId: nft.tokenId,
+          tokenId: token.tokenId,
         })}" target="_blank">View NFT on OpenSea</a>
       `
-      myNFTsUI.appendChild(el)
-    }
-  } else {
-    loginButton.style.visibility = 'visible'
-    loginButton?.addEventListener('click', async () => {
-      await sdk.connectWallet()
+      tokenList.appendChild(el)
     })
-  }
+  })
 }
-
-sdk.onConnect(() => {
-  updateUI()
-})
 
 updateUI()
 
