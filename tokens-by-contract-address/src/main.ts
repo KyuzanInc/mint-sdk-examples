@@ -11,7 +11,9 @@ const updateUI = async () => {
   const searchButton = document.querySelector<HTMLDivElement>('#searchButton')!
 
   searchButton.addEventListener('click', async () => {
-    const contractAddressInput = document.querySelector<HTMLInputElement>('#contractAddressInput')!
+    const contractAddressInput = document.querySelector<HTMLInputElement>(
+      '#contractAddressInput'
+    )!
     const contractAddress = contractAddressInput.value?.trim()
     const tokenList = document.querySelector<HTMLDivElement>('#tokenList')!
     tokenList.innerHTML = ''
@@ -30,7 +32,7 @@ const updateUI = async () => {
       contractId: tokens[0].contractERC721Id,
     })
 
-    tokens.forEach(token => {
+    tokens.forEach((token) => {
       const el = document.createElement('div')
       el.innerHTML = `
         🖼
