@@ -1,6 +1,6 @@
 # use-erc721-contracts-directly
 
-This example shows that the wallet is connected, with the network address, account balance, and the connecting network.
+This example shows that interacting with Smart Contracts by Mint SDK
 
 To start this, install the modules and try out with own ACCESS TOKEN and Fortmatic key.
 
