@@ -1,4 +1,4 @@
-# Fixed price example
+# List tokens that a wallet has
 
 This example shows how to get the list of NFTs held by a user wallet.
 
