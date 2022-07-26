@@ -22,6 +22,11 @@ export const Title = styled(ListComponent)`
   margin-left: 10px;
 `
 
+export const Subtitle = styled(ListComponent)`
+  ${font.mont.h4}
+  padding-left: 20px;
+`
+
 export const EmptyTitle = styled(ListComponent)`
   ${font.mont.h3}
   color: ${color.content.gray1};

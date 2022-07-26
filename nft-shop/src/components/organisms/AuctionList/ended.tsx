@@ -1,4 +1,5 @@
 import { Item } from '@kyuzan/mint-sdk-js'
+import { PaginationMetadata } from '@kyuzan/mint-sdk-js/lib/apiClient'
 import React from 'react'
 import {
   ListComponent,
@@ -7,14 +8,16 @@ import {
   CardUL,
   CardList,
   EmptyTitle,
+  Subtitle,
 } from '../../atoms/CardList'
 import { Card } from '../../molecules/Card'
 
 type Props = {
   items: Item[]
+  paginationMetadata: PaginationMetadata | null
 }
 
-export const EndedAuctionList: React.FC<Props> = ({ items }) => {
+export const EndedAuctionList: React.FC<Props> = ({ items, paginationMetadata }) => {
   if (items.length === 0) {
     return (
       <ListComponent>
@@ -29,6 +32,7 @@ export const EndedAuctionList: React.FC<Props> = ({ items }) => {
     <ListComponent>
       <ListTitle>
         <Title>終了した商品</Title>
+        {paginationMetadata?.totalItems && (<Subtitle>Total item: {paginationMetadata?.totalItems}</Subtitle>)}
       </ListTitle>
       <CardUL>
         {items.map((item, i) => {
