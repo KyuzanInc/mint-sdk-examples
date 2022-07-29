@@ -1,26 +1,49 @@
 import './style.css'
-import { MintSDK, NetworkId } from '@kyuzan/mint-sdk-js'
+import { Item, MintSDK, NetworkId } from '@kyuzan/mint-sdk-js'
 
 // --- configs
-const ACCESS_TOKEN = 'Set your Mint Keys'
+const ACCESS_TOKEN = 'Set your own token'
+const USE_SDK_GET_ITEM_V2 = true
 // ---
 
 const sdk = new MintSDK(ACCESS_TOKEN)
 
 const updateUI = async () => {
   // Get Listings
-  const items = await sdk.getItems({
-    perPage: 100,
-    page: 1,
-    paymentMethod: 'ethereum-contract-erc721-shop-fixed-price',
-    saleStatus: 'beforeEnd',
-    onlyAvailableStock: true,
-  })
+  let items: Item[]
+  let totalItems = 0
+  if (USE_SDK_GET_ITEM_V2) {
+    const [scheduled, onSale] = await Promise.all([sdk.getItemsV2({
+      perPage: 100,
+      page: 1,
+      paymentMethod: 'ethereum-contract-erc721-shop-fixed-price',
+      saleStatus: 'scheduled',
+      onlyAvailableStock: true,
+    }), sdk.getItemsV2({
+      perPage: 100,
+      page: 1,
+      paymentMethod: 'ethereum-contract-erc721-shop-fixed-price',
+      saleStatus: 'onSale',
+      onlyAvailableStock: true,
+    })])
+    items = [...scheduled.data, ...onSale.data]
+    totalItems = scheduled.meta.totalItems + onSale.meta.totalItems
+  } else {
+    items = await sdk.getItems({
+      perPage: 100,
+      page: 1,
+      paymentMethod: 'ethereum-contract-erc721-shop-fixed-price',
+      saleStatus: 'beforeEnd',
+      onlyAvailableStock: true,
+    })
+  }
+
   const listingsUI = document.querySelector<HTMLDivElement>('#listings')!
   listingsUI.innerHTML = ``
   for await (const item of items) {
     const el = document.createElement('div')
     el.innerHTML = `
+    <div>Total item: ${totalItems ? totalItems : 'unknown'} </div>
         <div>
           Previews:
           ${item.previews.map((v) => `<img width="100" src="${v.url}" />`)}
@@ -30,12 +53,11 @@ const updateUI = async () => {
           ItemName: ${item.name}
         </p>
         <p>
-          ItemMetaData: ${
-            item.metadata &&
-            Object.entries(item.metadata)
-              .map((kv) => `${kv[0]}:${kv[1]}`)
-              .join(',')
-          }
+          ItemMetaData: ${item.metadata &&
+      Object.entries(item.metadata)
+        .map((kv) => `${kv[0]}:${kv[1]}`)
+        .join(',')
+      }
         </p>
         </div>
       `
@@ -76,10 +98,10 @@ const updateUI = async () => {
         TokenId: ${nft.tokenId}
         TokenURI: ${nft.tokenURI}
         OpenSeaLink: <a href="${getOpenSeaLink({
-          networkId: contract.networkId,
-          contractAddress: contract.address,
-          tokenId: nft.tokenId,
-        })}" target="_blank">View NFT on OpenSea</a>
+        networkId: contract.networkId,
+        contractAddress: contract.address,
+        tokenId: nft.tokenId,
+      })}" target="_blank">View NFT on OpenSea</a>
       `
       myNFTsUI.appendChild(el)
     }

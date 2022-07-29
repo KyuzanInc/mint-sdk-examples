@@ -46,8 +46,8 @@ const Page = ({
       />
       <InnerContainer>
         {waitingItems && <LoadingList />}
-        {!waitingItems && <LiveAuctionList items={items.live} />}
-        {!waitingItems && <EndedAuctionList items={items.ended} />}
+        {!waitingItems && <LiveAuctionList items={items.live.data} paginationMetadata={items.live.meta} />}
+        {!waitingItems && <EndedAuctionList items={items.ended.data} paginationMetadata={items.ended.meta} />}
       </InnerContainer>
     </Container>
   )

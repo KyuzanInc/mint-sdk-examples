@@ -1,8 +1,9 @@
 import './style.css'
-import { MintSDK } from '@kyuzan/mint-sdk-js'
+import { Item, MintSDK } from '@kyuzan/mint-sdk-js'
 
 // --- configs
 const ACCESS_TOKEN = 'Set your own token'
+const USE_SDK_GET_ITEM_V2 = false
 // ---
 
 const sdk = new MintSDK(ACCESS_TOKEN, {
@@ -13,13 +14,33 @@ const sdk = new MintSDK(ACCESS_TOKEN, {
 
 const updateUI = async () => {
   // Payment Process
-  const items = await sdk.getItems({
-    perPage: 1,
-    page: 1,
-    paymentMethod: 'credit-card-stripe-fixed-price',
-    saleStatus: 'beforeEnd',
-    onlyAvailableStock: true,
-  })
+  let items: Item[]
+  let totalItems = 0
+  if (USE_SDK_GET_ITEM_V2) {
+    const [scheduled, onSale] = await Promise.all([sdk.getItemsV2({
+      perPage: 100,
+      page: 1,
+      paymentMethod: 'credit-card-stripe-fixed-price',
+      saleStatus: 'scheduled',
+      onlyAvailableStock: true,
+    }), sdk.getItemsV2({
+      perPage: 100,
+      page: 1,
+      paymentMethod: 'credit-card-stripe-fixed-price',
+      saleStatus: 'onSale',
+      onlyAvailableStock: true,
+    })])
+    items = [...scheduled.data, ...onSale.data]
+    totalItems = scheduled.meta.totalItems + onSale.meta.totalItems
+  } else {
+    items = await sdk.getItems({
+      perPage: 100,
+      page: 1,
+      paymentMethod: 'credit-card-stripe-fixed-price',
+      saleStatus: 'beforeEnd',
+      onlyAvailableStock: true,
+    })
+  }
 
   const listingsUI = document.querySelector<HTMLDivElement>('#listings')!
   listingsUI.innerHTML = ``
@@ -27,6 +48,7 @@ const updateUI = async () => {
     const item = items[0]
     const el = document.createElement('div')
     el.innerHTML = `
+        <div>Total item: ${totalItems ? totalItems : 'unknown'} </div>
         <div>
           Previews:
           ${item.previews.map((v) => `<img width="100" src="${v.url}" />`)}

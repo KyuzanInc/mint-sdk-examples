@@ -1,11 +1,18 @@
 import { Item } from '@kyuzan/mint-sdk-js'
+import { PaginationMetadata } from '@kyuzan/mint-sdk-js/lib/apiClient'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getSdk } from '../../sdk'
 
 export type ItemsState = {
   data: {
-    live: Item[]
-    ended: Item[]
+    live: {
+      data: Item[]
+      meta: PaginationMetadata | null
+    }
+    ended: {
+      data: Item[]
+      meta: PaginationMetadata | null
+    }
   }
   meta: {
     waitingItemAction: boolean
@@ -16,8 +23,14 @@ export type ItemsState = {
 
 export const initialItemsState: ItemsState = {
   data: {
-    live: [],
-    ended: [],
+    live: {
+      data: [],
+      meta: null
+    },
+    ended: {
+      data: [],
+      meta: null
+    },
   },
   meta: {
     waitingItemAction: false,
@@ -30,8 +43,14 @@ export const initialItemsState: ItemsState = {
 
 export const getItemsActionCreator = createAsyncThunk<
   {
-    live: Item[]
-    ended: Item[]
+    live: {
+      data: Item[]
+      meta: PaginationMetadata | null
+    }
+    ended: {
+      data: Item[]
+      meta: PaginationMetadata | null
+    }
   },
   void,
   {
@@ -39,16 +58,37 @@ export const getItemsActionCreator = createAsyncThunk<
   }
 >('app/items/get', async (_, thunkApi) => {
   try {
+    if (process.env.USE_SDK_GET_ITEM_V2 === "true") {
+      return {
+        live: await getSdk().getItemsV2({
+          page: 1,
+          perPage: 100,
+          saleStatus: 'onSale',
+        }),
+        ended: await getSdk().getItemsV2({
+          page: 1,
+          perPage: 100,
+          saleStatus: 'end',
+        }),
+      }
+    }
+
     return {
-      live: await getSdk().getItems({
-        page: 1,
-        perPage: 100,
-      }),
-      ended: await getSdk().getItems({
-        page: 1,
-        perPage: 100,
-        saleStatus: 'afterEnd',
-      }),
+      live: {
+        data: await getSdk().getItems({
+          page: 1,
+          perPage: 100,
+        }),
+        meta: null,
+      },
+      ended: {
+        data: await getSdk().getItems({
+          page: 1,
+          perPage: 100,
+          saleStatus: 'afterEnd'
+        }),
+        meta: null,
+      },
     }
   } catch (err) {
     console.error(err)
