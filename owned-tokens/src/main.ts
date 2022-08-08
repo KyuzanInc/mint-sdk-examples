@@ -10,6 +10,12 @@ const sdk = new MintSDK(ACCESS_TOKEN)
 const updateUI = async () => {
   // Get Owned NFTs
   const loginButton = document.querySelector<HTMLDivElement>('#loginButton')!
+  const inputContractAddress = document.querySelector<HTMLInputElement>('#inputContractAddressWrapper')
+  inputContractAddress?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      updateUI();
+    }
+  })
   if (await sdk.isWalletConnect()) {
     loginButton.style.visibility = 'hidden'
     const connectedWallet = await sdk.getWalletInfo()
@@ -18,6 +24,7 @@ const updateUI = async () => {
       walletAddress: address,
       perPage: 100,
       page: 1,
+      contractAddress: inputContractAddress?.value && inputContractAddress?.value
     })
     const myNFTsUI = document.querySelector<HTMLDivElement>('#myNFTs')!
     for await (const nft of ownedNFTs) {
