@@ -25,9 +25,8 @@ const registerButton =
   document.querySelector<HTMLButtonElement>('#registerButton')!
 registerButton.addEventListener('click', async () => {
     try {
-      const otp = document.querySelector<HTMLInputElement>('#otpRegister')!
-      const walletAddress = document.querySelector<HTMLInputElement>('#walletAddress')!
-      await sdk.registerWalletToWalletList(otp.value, walletAddress.value)
+      const otp = document.querySelector<HTMLInputElement>('#otp')!
+      await sdk.registerWalletToWalletList(otp.value)
       alert('success apply for mint')
     } catch (err) {
       alert(err)
