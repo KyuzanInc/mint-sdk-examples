@@ -55,7 +55,7 @@
     "@types/mime": "2.0.3",
     "@types/node": "16.11.45",
     "@types/react": "17.0.47",
-    "@types/react-dom": "17.0.17",
+    "@types/react-dom": "18.0.9",
     "@types/react-modal": "3.13.1",
     "@types/react-redux": "7.1.24",
     "@types/react-slick": "0.23.10",
