@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "typescript": "4.7.4",
-    "vite": "2.9.14"
+    "vite": "6.4.3"
   },
   "dependencies": {
     "@esbuild-plugins/node-globals-polyfill": "0.1.1",
